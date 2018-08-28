@@ -71,31 +71,20 @@ void addNumber(int *&array, int &currentSize, int index, int number)
 	array = newArray;
 }
 //g. функцию удалени€ элемента по указанному индексу
-void del(int *a)
+bool iDel(int *array, int &lenAr, int nom)
 {
-	int k, k1, n, add;
-	cout << "¬ведите размер массива:";
-	cin >> n;
-	a = new int[n];
-	for (int i = 0; i < n; i++)
+	if (nom > lenAr || nom < 1)
 	{
-		a[i] = 1 + rand() % 10;
-		cout << setw(3) << a[i];
+		cout << "ќшибка удалени€" << endl;
+		return false;
 	}
-	cin >> k >> k1;
-	if (k >= 0 && k < n)
+
+	for (int i = nom - 1; i < lenAr - 1; i++)
 	{
-		for (int i = k; i < n - k1; i++)
-		{
-			a[i] = a[i + k1];
-		}
-		for (int i = 0; i < n - k1; i++)
-		{
-			cout << setw(3) << a[i];
-		}
-		cout << endl;
+		array[i] = array[i + 1];
 	}
-	delete[] a;
+	lenAr--;
+	return true;
 }
 
 
@@ -236,8 +225,34 @@ start:
 		case 'g':
 		{
 			cout << "g.функцию удалени€ элемента по указанному индексу " << endl;
-			int c[] = { 1,5,8,9,4,6 };
-			del(c);
+			int length_array;
+			cout << "”кажите количество элементов массива: ";
+			cin >> length_array;
+
+			int *arrayPtr = new int[length_array]; 
+
+												  
+			for (int counter = 0; counter < length_array; counter++)
+			{
+				arrayPtr[counter] = rand() % 100; 
+				cout << arrayPtr[counter] << "  "; 
+			}
+			cout << endl;
+
+			int n;
+			cout << "”кажите номер элемента массива, который необходимо удалить: ";
+			cin >> n;
+
+			iDel(arrayPtr, length_array, n);
+
+			for (int counter = 0; counter < length_array; counter++)
+			{
+				cout << arrayPtr[counter] << "  "; 
+			}
+
+			cout << endl;
+
+			delete[] arrayPtr;
 		}
 			break;		
 		}
