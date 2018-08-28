@@ -59,9 +59,16 @@ void addElement(int *a, int number)
 
 }
 //f. функцию вставки элемента по указанному индексу
-void add(int *a)
+void addNumber(int *&array, int &currentSize, int index, int number)
 {
-
+	int *newArray = new int[++currentSize]; 
+	for (int i = 0; i < index; ++i) 
+		newArray[i] = array[i];
+	newArray[index] = number;
+	for (int i = index; i < currentSize - 1; ++i) 
+		newArray[i + 1] = array[i];
+	delete[]array; 
+	array = newArray;
 }
 //g. функцию удаления элемента по указанному индексу
 void del(int *a)
@@ -78,11 +85,11 @@ void del(int *a)
 	cin >> k >> k1;
 	if (k >= 0 && k < n)
 	{
-		for (int i = k; i < n-k1; i++)
+		for (int i = k; i < n - k1; i++)
 		{
 			a[i] = a[i + k1];
 		}
-		for (int i = 0; i < n-k1; i++)
+		for (int i = 0; i < n - k1; i++)
 		{
 			cout << setw(3) << a[i];
 		}
@@ -168,31 +175,72 @@ start:
 		cout << "e.функцию добавления элемента в конец массива " << endl;
 		cout << "f.функцию вставки элемента по указанному индексу " << endl;
 		cout << "g.функцию удаления элемента по указанному индексу " << endl;
-
-		cout << endl;
 		cout << "---------------------------------------------------------------------------" << endl;
-		cout << "a.функция распределения динамической памяти " << endl;
-		cout << "b.функция инициализации динамического массива " << endl;
-		cout << "c.функция печати динамического массива " << endl;
-		cout << "d.функцию удаления динамического массива " << endl;
-		int a[5];
-
-		for (int i = 0; i < 5; i++)
+		char f = 0;
+		cout << "Выберите пункт:";
+		cin >> f;
+		cout << endl;
+		switch (f)
 		{
-			a[i] = 1 + rand() % 10;
-			cout << setw(3) << a[i];
+		case 'a':
+		{
+			cout << "a.функция распределения динамической памяти " << endl;
+
 		}
-		cout << endl;
-		aFunc(a);
-		cout << "---------------------------------------------------------------------------" << endl;
-		cout << "e.функцию добавления элемента в конец массива " << endl;
+			break;
+		case 'b': 
+		{
+			cout << "b.функция инициализации динамического массива " << endl;
+		}
+			break;
+		case 'c': {
+			cout << "c.функция печати динамического массива " << endl;
+		}
+			break;
+		case 'd': 
+		{
+			cout << "d.функцию удаления динамического массива " << endl;
+			int b[5];
 
-		cout << "---------------------------------------------------------------------------" << endl;
-		cout << "g.функцию удаления элемента по указанному индексу " << endl;
-		int b[] = {1,5,8,9,4,6};
-		del(b);
-
-
+			for (int i = 0; i < 5; i++)
+			{
+				b[i] = 1 + rand() % 10;
+				cout << setw(3) << b[i];
+			}
+			cout << endl;
+			aFunc(b);
+		}
+			break;
+		case 'e':
+		{
+			cout << "e.функцию добавления элемента в конец массива " << endl;
+			
+		}
+			break;
+		case 'f': 
+		{
+			cout << "f.функцию вставки элемента по указанному индексу " << endl;
+			int *a = new int[5], k = 5;
+			for (int i = 0; i < k; i++) a[i] = i;
+			for (int i = 0; i < k; ++i) cout << a[i] << " ";
+			cout << endl;
+			addNumber(a, k, 3, 899);
+			for (int i = 0; i < k; ++i) cout << a[i] << " ";
+			cout << endl;
+			addNumber(a, k, 4, 1000);
+			for (int i = 0; i < k; ++i) cout << a[i] << " ";
+			cout << endl;
+			delete[]a;
+		}
+			break;
+		case 'g':
+		{
+			cout << "g.функцию удаления элемента по указанному индексу " << endl;
+			int c[] = { 1,5,8,9,4,6 };
+			del(c);
+		}
+			break;		
+		}
 	}
 
 	else if (n == 4)
